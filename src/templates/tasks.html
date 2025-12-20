@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Задания</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Статус</th>
+        <th>PDF</th>
+        <th>Ошибка</th>
+    </tr>
+    {% for t in tasks %}
+    <tr>
+        <td>{{ t.id }}</td>
+        <td>{{ t.title }}</td>
+        <td>{{ t.status }}</td>
+        <td>
+            {% if t.pdf_object_key %}
+            <a href="/download/{{ t.pdf_object_key }}">Скачать</a>
+            {% endif %}
+        </td>
+        <td>{{ t.error }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

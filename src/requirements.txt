@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+jinja2
+boto3
+requests
+ydb
+yandex-cloud-ml-sdk
+python-multipart
+reportlab
