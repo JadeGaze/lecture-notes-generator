@@ -1,0 +1,936 @@
+{
+  "version": 4,
+  "terraform_version": "1.13.5",
+  "serial": 545,
+  "lineage": "e04787bb-aff0-ed7c-88b2-5b13e8190b81",
+  "outputs": {
+    "api_gateway_url": {
+      "value": "d5dt5p314601062gei9e.ql6wied2.apigw.yandexcloud.net",
+      "type": "string"
+    },
+    "registry_id": {
+      "value": "crp0qek5p0nqib7ah9n7",
+      "type": "string"
+    },
+    "ydb_database_path": {
+      "value": "/ru-central1/b1g71e95h51okii30p25/etnj66mb9sl4kck50v6t",
+      "type": "string"
+    },
+    "ydb_endpoint": {
+      "value": "ydb.serverless.yandexcloud.net:2135",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "worker_invoker",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "bd4cfce758c9748f348cf4ab5bd80cb4db2d1c2a",
+            "output_base64sha256": "ytA/Sh0WerB4h0qkwzqcZ1l0Uc1LAjBDaN8Palro7Yw=",
+            "output_base64sha512": "pJfQ0/oX/aBWn++i165lxgmNTX0mNNxyo0noiIeQFD0e6Ns/STEP+aZhUYRRwhyS533UG659kAJ8hkhQOwptJA==",
+            "output_file_mode": null,
+            "output_md5": "38629253afe4f2157380c005d709c152",
+            "output_path": "./worker_invoker.zip",
+            "output_sha": "bd4cfce758c9748f348cf4ab5bd80cb4db2d1c2a",
+            "output_sha256": "cad03f4a1d167ab078874aa4c33a9c67597451cd4b02304368df0f6a5ae8ed8c",
+            "output_sha512": "a497d0d3fa17fda0569fefa2d7ae65c6098d4d7d2634dc72a349e8888790143d1ee8db3f49310ff9a661518451c21c92e77dd41bae7d90027c8648503b0a6d24",
+            "output_size": 921,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./worker_invoker",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_api_gateway",
+      "name": "api",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "canary": [],
+            "connectivity": [],
+            "created_at": "2025-12-25T23:47:59Z",
+            "custom_domains": [],
+            "description": "",
+            "domain": "d5dt5p314601062gei9e.ql6wied2.apigw.yandexcloud.net",
+            "execution_timeout": "300",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "id": "d5dt5p314601062gei9e",
+            "labels": {},
+            "log_group_id": "",
+            "log_options": [],
+            "name": "lecture-notes-vvot-20-api",
+            "spec": "openapi: 3.0.0\r\ninfo:\r\n  title: Lecture Notes Generator\r\n  version: 1.0.0\r\npaths:\r\n  /:\r\n    get:\r\n      x-yc-apigateway-integration:\r\n        type: serverless_containers\r\n        container_id: bbahm5vuit4desdfs2fc\r\n        service_account_id: ajekg71ge1lvmv2s792n\r\n  /tasks:\r\n    get:\r\n      x-yc-apigateway-integration:\r\n        type: serverless_containers\r\n        container_id: bbahm5vuit4desdfs2fc\r\n        service_account_id: ajekg71ge1lvmv2s792n\r\n    post:\r\n      x-yc-apigateway-integration:\r\n        type: serverless_containers\r\n        container_id: bbahm5vuit4desdfs2fc\r\n        service_account_id: ajekg71ge1lvmv2s792n\r\n",
+            "status": "active",
+            "timeouts": null,
+            "user_domains": [],
+            "variables": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "yandex_container_registry.registry",
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key",
+            "yandex_message_queue.queue",
+            "yandex_serverless_container.web",
+            "yandex_storage_bucket.bucket",
+            "yandex_ydb_database_serverless.ydb"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_container_registry",
+      "name": "registry",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "created_at": "2025-12-25T23:31:09Z",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "id": "crp0qek5p0nqib7ah9n7",
+            "labels": null,
+            "name": "lecture-notes-vvot-20-registry",
+            "registry_id": "crp0qek5p0nqib7ah9n7",
+            "status": "ACTIVE",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_function",
+      "name": "worker_invoker",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "async_invocation": [],
+            "concurrency": 1,
+            "connectivity": [],
+            "content": [
+              {
+                "zip_filename": "./worker_invoker.zip"
+              }
+            ],
+            "created_at": "2025-12-27T23:40:34Z",
+            "description": "",
+            "entrypoint": "index.handler",
+            "environment": {
+              "CONTAINER_ID": "bbahgi96ufnppsa5ja3a"
+            },
+            "execution_timeout": "10",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "id": "d4eoflmmgsd6t9rns5vt",
+            "image_size": 1728512,
+            "labels": {},
+            "log_options": [],
+            "memory": 128,
+            "metadata_options": [
+              {
+                "aws_v1_http_endpoint": 0,
+                "gce_http_endpoint": 0
+              }
+            ],
+            "mounts": [],
+            "name": "lecture-notes-vvot-20-worker-invoker",
+            "package": [],
+            "runtime": "python312",
+            "secrets": [],
+            "service_account_id": "ajekg71ge1lvmv2s792n",
+            "storage_mounts": [],
+            "tags": [],
+            "timeouts": null,
+            "tmpfs_size": 0,
+            "user_hash": "ytA/Sh0WerB4h0qkwzqcZ1l0Uc1LAjBDaN8Palro7Yw=",
+            "version": "d4eb2q7eetkb8q3oe5a0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.archive_file.worker_invoker",
+            "yandex_container_registry.registry",
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key",
+            "yandex_message_queue.queue",
+            "yandex_serverless_container.worker",
+            "yandex_storage_bucket.bucket",
+            "yandex_ydb_database_serverless.ydb"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_function_trigger",
+      "name": "worker_timer",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "container": [],
+            "container_registry": [],
+            "created_at": "2025-12-27T23:40:41Z",
+            "data_streams": [],
+            "description": "",
+            "dlq": [],
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "function": [
+              {
+                "id": "d4eoflmmgsd6t9rns5vt",
+                "retry_attempts": "",
+                "retry_interval": "",
+                "service_account_id": "ajekg71ge1lvmv2s792n",
+                "tag": ""
+              }
+            ],
+            "id": "a1s50i9uenib4644m0t9",
+            "iot": [],
+            "labels": {},
+            "log_group": [],
+            "logging": [],
+            "mail": [],
+            "message_queue": [],
+            "name": "lecture-notes-vvot-20-worker-timer",
+            "object_storage": [],
+            "timeouts": null,
+            "timer": [
+              {
+                "cron_expression": "* * * * ? *",
+                "payload": ""
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "data.archive_file.worker_invoker",
+            "yandex_container_registry.registry",
+            "yandex_function.worker_invoker",
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key",
+            "yandex_message_queue.queue",
+            "yandex_serverless_container.worker",
+            "yandex_storage_bucket.bucket",
+            "yandex_ydb_database_serverless.ydb"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_iam_service_account",
+      "name": "sa",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "created_at": "2025-12-25T23:31:09Z",
+            "description": "",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "id": "ajekg71ge1lvmv2s792n",
+            "labels": null,
+            "name": "lecture-notes-vvot-20-sa",
+            "service_account_id": "ajekg71ge1lvmv2s792n",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_iam_service_account_key",
+      "name": "sa_key",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "created_at": "2025-12-25T23:47:58Z",
+            "description": "Key for object storage access",
+            "encrypted_private_key": null,
+            "format": "PEM_FILE",
+            "id": "aje9maj77nuhrfb9k17j",
+            "key_algorithm": "RSA_2048",
+            "key_fingerprint": null,
+            "output_to_lockbox": [],
+            "output_to_lockbox_version_id": null,
+            "pgp_key": null,
+            "private_key": "PLEASE DO NOT REMOVE THIS LINE! Yandex.Cloud SA Key ID \u003caje9maj77nuhrfb9k17j\u003e\n-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDDjs9PD7PJH4It\nQYnKFf/V3WVeQlUekZRTWZNXPaYnZjp1GPhC6x1vimUaXMLNVXB5Pqg3WfiG90Lq\nyXSriyrkLKwR7+4kV3FiUNN0E9HFrk7C/UIhoXCXWpJCOrmLa/GRlnT1bzyRz0wG\nDe1QHKHL3dXi031XvtMoxcrovHytHn2alruTNNRpJEIJr0Mgre6w5AyDeH7sdO7J\n7gTrjfnulkxcUtHhJOlX5aLUn+wkeh8bh4EtOEHhuJKGOkLRNcCby1uvsf5VGaD3\npHOfZG28gn/rj9E2PrsR1ns7Z8N2kC4XI9wIS7WyU6GSg2fz6AoEjNbE68bDI0nz\n4tmGASRZAgMBAAECggEAJ8Y4mQJ/FSWQ8wZ08YLW9ZchonHIYT7H1coOwzw5OqM6\nuY1aFTY/1utlk96RCnVZundJfHSSrVTGKf3OeoOENkN1vfI4U/DrEU2SLHZJgLTq\ntRMQq8lrnoUf4VOTYG2UhQF+iVrWDWwFsOeNQHGKYO4eLhPI1xtrVEwicILBsu35\nD5zE+Ns44+QnI/KxW0KkxyFH/Xfq7JjhDJVQZ+AEkzd7Fs1ZUNT/+sR01czM3Y23\nsIqYCVShM6gHAayFseoWZeoB09Z1L/7lJPk4IfZvRH7ia9yWplwLZJZFQ/b/9o+w\nFi3fa1UeGNSCNAQtr2941ORQQQ6EvGzpy22aOUvWzwKBgQDp72sSVcQOlXFNrgq1\n70UR4AWDwL/6k3IwSPBDxcHAqUUmxIZVt9UkPTRW9zkiovCEyRpdROqhvOwJ66ue\nPtGT13+SLHRCwotPsYubXO1qTmgiPUL6zk8oJPotE2PiGed0wqeI6ikVDWc8hsdH\nKWUPv+odk1RM0O4a2BgfDd0eHwKBgQDWALwCF4jhbFCcrs5O3zqsLDMzD5BXUe/w\na3Rx34ugfIDC1S5Jb6VQoJNS/DRelQKkFUBVEL8yYPI9ktEbKFU/BYeH6Noh5Asa\nSAUtIBXxu8lR+t9T0a1+EzrlNAXq4Ipd5SR1IHLl+ifObRIbeoIM9SuFg59zXBW9\nh7gk5g1+hwKBgQCkxbdEDdbvcsGAtnLi3OpogcNAnvZZ95r5eZaKFfO30UJc4RXB\nsJ9XTCjejHnY9K22ybNhOJaPX3NeNXoHFzYlDSfU/KzTDRZ1BphP0S+Erj9Yxo+z\n+rb0jr8MGtlCu3401pqMrGpNYshxcHlSnUyKwGGVfV1mUc80ZzruPKSffwKBgGxP\n/thINR1zBvHmf8DntviBfoBvdizb6ccTe+JOtIrLuRfjcgP1IATI4Qf1YkQkwytt\nHhxv13WWH8UOVAucxFibYddmAVF57CynGweV38VzuBdoFDSGQXs4HGz5ga05bI7N\ndUBa5gyEKjWOesWxobUROa/fyIpIpzBASvFSBq5tAoGBAKl2sLHs4kWQISgqWIeJ\nbF5X0mgFTlKDPFg0hfmWIVjaqKsrl4OlDc+Hvxc1jgRv1O8/6UuwEdg1EEVcpU7z\nWk2kF33MBW4SuaqvNAW1EKcnrWcTR2ydQgaVJqIM5zezITQVrcSUCqffpstIfFPx\nrGkV5+Ve6grCx7EZd+cqkWII\n-----END PRIVATE KEY-----\n",
+            "public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw47PTw+zyR+CLUGJyhX/\n1d1lXkJVHpGUU1mTVz2mJ2Y6dRj4Qusdb4plGlzCzVVweT6oN1n4hvdC6sl0q4sq\n5CysEe/uJFdxYlDTdBPRxa5Owv1CIaFwl1qSQjq5i2vxkZZ09W88kc9MBg3tUByh\ny93V4tN9V77TKMXK6Lx8rR59mpa7kzTUaSRCCa9DIK3usOQMg3h+7HTuye4E6435\n7pZMXFLR4STpV+Wi1J/sJHofG4eBLThB4biShjpC0TXAm8tbr7H+VRmg96Rzn2Rt\nvIJ/64/RNj67EdZ7O2fDdpAuFyPcCEu1slOhkoNn8+gKBIzWxOvGwyNJ8+LZhgEk\nWQIDAQAB\n-----END PUBLIC KEY-----\n",
+            "service_account_id": "ajekg71ge1lvmv2s792n"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "private_key"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_iam_service_account_static_access_key",
+      "name": "sa_static_key",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_key": "YCAJE3Jc-3S25H5xDNd-Jt_ls",
+            "created_at": "2025-12-25T23:47:58Z",
+            "description": "Static access key for Object Storage",
+            "encrypted_secret_key": null,
+            "id": "ajeg25ctmq02o4skbcng",
+            "key_fingerprint": null,
+            "output_to_lockbox": [],
+            "output_to_lockbox_version_id": null,
+            "pgp_key": null,
+            "secret_key": "YCO_OXomUi-EZHmzHSt4lyZ5LKpypyw3roQCbClK",
+            "service_account_id": "ajekg71ge1lvmv2s792n"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "secret_key"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_message_queue",
+      "name": "queue",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_key": "YCAJE3Jc-3S25H5xDNd-Jt_ls",
+            "arn": "yrn:yc:ymq:ru-central1:b1gthhqem16g6aa06iu9:lecture-notes-vvot-20-queue",
+            "content_based_deduplication": false,
+            "delay_seconds": 0,
+            "fifo_queue": false,
+            "id": "https://message-queue.api.cloud.yandex.net/b1g71e95h51okii30p25/dj60000000ahhahg02mk/lecture-notes-vvot-20-queue",
+            "max_message_size": 262144,
+            "message_retention_seconds": 345600,
+            "name": "lecture-notes-vvot-20-queue",
+            "name_prefix": null,
+            "receive_wait_time_seconds": 0,
+            "redrive_policy": "",
+            "region_id": "ru-central1",
+            "secret_key": "YCO_OXomUi-EZHmzHSt4lyZ5LKpypyw3roQCbClK",
+            "tags": {},
+            "visibility_timeout_seconds": 30
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "secret_key"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_resourcemanager_folder_iam_binding",
+      "name": "editor",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "members": [
+              "serviceAccount:ajekg71ge1lvmv2s792n"
+            ],
+            "role": "editor",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_resourcemanager_folder_iam_binding",
+      "name": "ymq_reader_role",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "members": [
+              "serviceAccount:ajekg71ge1lvmv2s792n"
+            ],
+            "role": "ymq.reader",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_resourcemanager_folder_iam_binding",
+      "name": "ymq_roles",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "members": [
+              "serviceAccount:ajekg71ge1lvmv2s792n"
+            ],
+            "role": "ymq.writer",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_resourcemanager_folder_iam_member",
+      "name": "sa_roles",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "index_key": "ai.languageModels.user",
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "ai.languageModels.user",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        },
+        {
+          "index_key": "ai.speechkit-stt.user",
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "ai.speechkit-stt.user",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        },
+        {
+          "index_key": "editor",
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "editor",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        },
+        {
+          "index_key": "serverless.containers.invoker",
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "serverless.containers.invoker",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        },
+        {
+          "index_key": "storage.editor",
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "storage.editor",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        },
+        {
+          "index_key": "ydb.editor",
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "ydb.editor",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        },
+        {
+          "index_key": "ymq.writer",
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "ymq.writer",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_resourcemanager_folder_iam_member",
+      "name": "ymq_reader",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "member": "serviceAccount:ajekg71ge1lvmv2s792n",
+            "role": "ymq.reader",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_serverless_container",
+      "name": "web",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "status": "tainted",
+          "schema_version": 0,
+          "attributes": {
+            "async_invocation": [],
+            "concurrency": 1,
+            "connectivity": [],
+            "core_fraction": 100,
+            "cores": 1,
+            "created_at": "2025-12-28T00:42:21Z",
+            "description": "",
+            "execution_timeout": "10s",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "id": "bbahm5vuit4desdfs2fc",
+            "image": [
+              {
+                "args": null,
+                "command": null,
+                "digest": "sha256:c0f277af586b04512d0c7074ee56d068872788aebff927fe76aa13893e944555",
+                "environment": {
+                  "AWS_ACCESS_KEY_ID": "YCAJE3Jc-3S25H5xDNd-Jt_ls",
+                  "AWS_SECRET_ACCESS_KEY": "YCO_OXomUi-EZHmzHSt4lyZ5LKpypyw3roQCbClK",
+                  "BUCKET_NAME": "lecture-notes-vvot-20-pdf-bucket",
+                  "FOLDER_ID": "b1gthhqem16g6aa06iu9",
+                  "QUEUE_URL": "https://message-queue.api.cloud.yandex.net/b1g71e95h51okii30p25/dj60000000ahhahg02mk/lecture-notes-vvot-20-queue",
+                  "YDB_DATABASE": "/ru-central1/b1g71e95h51okii30p25/etnj66mb9sl4kck50v6t",
+                  "YDB_ENDPOINT": "ydb.serverless.yandexcloud.net:2135"
+                },
+                "url": "cr.yandex/crp0qek5p0nqib7ah9n7/web:latest",
+                "work_dir": ""
+              }
+            ],
+            "labels": null,
+            "log_options": [],
+            "memory": 512,
+            "metadata_options": [
+              {
+                "aws_v1_http_endpoint": 0,
+                "gce_http_endpoint": 0
+              }
+            ],
+            "mounts": [],
+            "name": "lecture-notes-vvot-20-web",
+            "provision_policy": [],
+            "revision_id": "bbai81pl6efcj5av62sp",
+            "runtime": [
+              {
+                "type": "http"
+              }
+            ],
+            "secrets": [],
+            "service_account_id": "ajekg71ge1lvmv2s792n",
+            "storage_mounts": null,
+            "timeouts": null,
+            "url": "https://bbahm5vuit4desdfs2fc.containers.yandexcloud.net/"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "image"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "AWS_SECRET_ACCESS_KEY",
+                  "type": "string"
+                }
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "yandex_container_registry.registry",
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key",
+            "yandex_message_queue.queue",
+            "yandex_storage_bucket.bucket",
+            "yandex_ydb_database_serverless.ydb"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_serverless_container",
+      "name": "worker",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "status": "tainted",
+          "schema_version": 0,
+          "attributes": {
+            "async_invocation": [],
+            "concurrency": 2,
+            "connectivity": [
+              {
+                "network_id": ""
+              }
+            ],
+            "core_fraction": 100,
+            "cores": 1,
+            "created_at": "2025-12-28T00:42:21Z",
+            "description": "",
+            "execution_timeout": "10m0s",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "id": "bbann3u937v4caeasucv",
+            "image": [
+              {
+                "args": null,
+                "command": null,
+                "digest": "sha256:977051bdff2dbe8ba5b4598172cffb4873db6f837df6f8a4dc7185e09c477d34",
+                "environment": {
+                  "AWS_ACCESS_KEY_ID": "YCAJE3Jc-3S25H5xDNd-Jt_ls",
+                  "AWS_SECRET_ACCESS_KEY": "YCO_OXomUi-EZHmzHSt4lyZ5LKpypyw3roQCbClK",
+                  "BUCKET_NAME": "lecture-notes-vvot-20-pdf-bucket",
+                  "FOLDER_ID": "b1gthhqem16g6aa06iu9",
+                  "QUEUE_URL": "https://message-queue.api.cloud.yandex.net/b1g71e95h51okii30p25/dj60000000ahhahg02mk/lecture-notes-vvot-20-queue",
+                  "YDB_DATABASE": "/ru-central1/b1g71e95h51okii30p25/etnj66mb9sl4kck50v6t",
+                  "YDB_ENDPOINT": "ydb.serverless.yandexcloud.net:2135"
+                },
+                "url": "cr.yandex/crp0qek5p0nqib7ah9n7/worker:latest",
+                "work_dir": ""
+              }
+            ],
+            "labels": null,
+            "log_options": [],
+            "memory": 2048,
+            "metadata_options": [
+              {
+                "aws_v1_http_endpoint": 0,
+                "gce_http_endpoint": 0
+              }
+            ],
+            "mounts": [],
+            "name": "lecture-notes-vvot-20-worker",
+            "provision_policy": [],
+            "revision_id": "bbagi2d98pcq5pqech20",
+            "runtime": [
+              {
+                "type": "http"
+              }
+            ],
+            "secrets": [],
+            "service_account_id": "ajekg71ge1lvmv2s792n",
+            "storage_mounts": null,
+            "timeouts": null,
+            "url": "https://bbann3u937v4caeasucv.containers.yandexcloud.net/"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "image"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "AWS_SECRET_ACCESS_KEY",
+                  "type": "string"
+                }
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "yandex_container_registry.registry",
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key",
+            "yandex_message_queue.queue",
+            "yandex_storage_bucket.bucket",
+            "yandex_ydb_database_serverless.ydb"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_serverless_container_iam_binding",
+      "name": "worker_invoker",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "container_id": "bbahgi96ufnppsa5ja3a",
+            "members": [
+              "serviceAccount:ajekg71ge1lvmv2s792n"
+            ],
+            "role": "serverless.containers.invoker",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_container_registry.registry",
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key",
+            "yandex_message_queue.queue",
+            "yandex_serverless_container.worker",
+            "yandex_storage_bucket.bucket",
+            "yandex_ydb_database_serverless.ydb"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_storage_bucket",
+      "name": "bucket",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "access_key": "YCAJE3Jc-3S25H5xDNd-Jt_ls",
+            "acl": null,
+            "anonymous_access_flags": [
+              {
+                "config_read": false,
+                "list": false,
+                "read": false
+              }
+            ],
+            "bucket": "lecture-notes-vvot-20-pdf-bucket",
+            "bucket_domain_name": "lecture-notes-vvot-20-pdf-bucket.storage.yandexcloud.net",
+            "bucket_prefix": null,
+            "cors_rule": [],
+            "default_storage_class": "STANDARD",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "force_destroy": false,
+            "grant": [],
+            "https": [],
+            "id": "lecture-notes-vvot-20-pdf-bucket",
+            "lifecycle_rule": [],
+            "logging": [],
+            "max_size": 0,
+            "object_lock_configuration": [],
+            "policy": "",
+            "secret_key": "YCO_OXomUi-EZHmzHSt4lyZ5LKpypyw3roQCbClK",
+            "server_side_encryption_configuration": [],
+            "tags": {},
+            "versioning": [
+              {
+                "enabled": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "secret_key"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "yandex_iam_service_account.sa",
+            "yandex_iam_service_account_static_access_key.sa_static_key"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_ydb_database_serverless",
+      "name": "ydb",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "created_at": "2025-12-25T23:30:47Z",
+            "database_path": "/ru-central1/b1g71e95h51okii30p25/etnj66mb9sl4kck50v6t",
+            "deletion_protection": false,
+            "description": "",
+            "document_api_endpoint": "https://docapi.serverless.yandexcloud.net/ru-central1/b1g71e95h51okii30p25/etnj66mb9sl4kck50v6t",
+            "folder_id": "b1gthhqem16g6aa06iu9",
+            "id": "etnj66mb9sl4kck50v6t",
+            "labels": {},
+            "location_id": "ru-central1",
+            "name": "lecture-notes-vvot-20-ydb",
+            "serverless_database": [
+              {
+                "enable_throttling_rcu_limit": false,
+                "provisioned_rcu_limit": 0,
+                "storage_size_limit": 50,
+                "throttling_rcu_limit": 0
+              }
+            ],
+            "sleep_after": 0,
+            "status": "RUNNING",
+            "timeouts": null,
+            "tls_enabled": true,
+            "ydb_api_endpoint": "ydb.serverless.yandexcloud.net:2135",
+            "ydb_full_endpoint": "grpcs://ydb.serverless.yandexcloud.net:2135/?database=/ru-central1/b1g71e95h51okii30p25/etnj66mb9sl4kck50v6t"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlZmF1bHQiOjYwMDAwMDAwMDAwMCwiZGVsZXRlIjo2MDAwMDAwMDAwMDAsInJlYWQiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjo2MDAwMDAwMDAwMDB9fQ=="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
