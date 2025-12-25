@@ -38,9 +38,7 @@ def tasks(request: Request):
 
 @app.get("/download/{object_key}")
 def download_pdf(object_key: str):
-    """Генерировать presigned URL для скачивания PDF из S3."""
     try:
-        # Создаем S3 клиент
         s3 = boto3.client(
             's3',
             endpoint_url='https://storage.yandexcloud.net',
@@ -50,7 +48,6 @@ def download_pdf(object_key: str):
             config=Config(signature_version='s3v4')
         )
         
-        # Генерируем presigned URL (действителен 1 час)
         presigned_url = s3.generate_presigned_url(
             'get_object',
             Params={
@@ -60,7 +57,6 @@ def download_pdf(object_key: str):
             ExpiresIn=3600  # 1 час
         )
         
-        # Перенаправляем на presigned URL
         return RedirectResponse(presigned_url)
     except Exception as e:
         return {"error": str(e)}, 500

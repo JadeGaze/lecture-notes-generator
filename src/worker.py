@@ -23,8 +23,6 @@ print("Worker HTTP service started", flush=True)
 
 
 def get_yandex_disk_download_url(public_url: str) -> str:
-    """Получить прямую ссылку для скачивания файла с Яндекс Диска."""
-    # Если это уже download-ссылка
     if 'downloader.disk' in public_url or 'download' in public_url.lower():
         logger.info(f"Using direct download URL: {public_url}")
         return public_url
@@ -33,13 +31,10 @@ def get_yandex_disk_download_url(public_url: str) -> str:
     if '360.yandex' in public_url or 'disk.360.yandex' in public_url:
         logger.info(f"360.yandex URL detected, extracting download link from page")
         try:
-            # Загружаем страницу
             page_response = requests.get(public_url, timeout=10)
             page_response.raise_for_status()
             page_html = page_response.text
             
-            # Ищем download ссылку в HTML
-            # Обычно она в виде: https://downloader.disk.360.yandex.ru/...
             import re
             download_match = re.search(r'(https://downloader\.disk\.360\.yandex\.[^"\']+)', page_html)
             if download_match:
@@ -58,7 +53,6 @@ def get_yandex_disk_download_url(public_url: str) -> str:
         except Exception as e:
             raise Exception(f"Ошибка парсинга 360.yandex ссылки: {e}. Используйте прямую ссылку на скачивание.")
     
-    # Для обычного disk.yandex.ru используем API
     api_url = "https://cloud-api.yandex.net/v1/disk/public/resources/download"
     try:
         response = requests.get(api_url, params={"public_key": public_url}, timeout=10)
@@ -80,9 +74,7 @@ def get_iam_token():
 
 
 def recognize_speech_rest_api(audio_path: str, folder_id: str) -> str:
-    """Распознать речь через REST API SpeechKit."""
-    import time
-    
+
     iam_token = get_iam_token()
     
     # Проверяем размер файла
@@ -110,11 +102,8 @@ def recognize_speech_rest_api(audio_path: str, folder_id: str) -> str:
         response.raise_for_status()
         return response.json().get("result", "")
     
-    # Для длинных аудио используем упрощенный подход - нарезка на части
     logger.info("Audio is too long for sync API, using chunked processing")
     
-    # Простое решение: обработаем только первые 30 секунд для демо
-    # В production нужно использовать Long Audio Recognition API с S3
     logger.warning("Processing only first 30 seconds of audio (demo limitation)")
     
     # Создаем короткий файл (первые 30 сек)
@@ -153,12 +142,10 @@ def recognize_speech_rest_api(audio_path: str, folder_id: str) -> str:
 
 
 def download_video(url: str, output_path: str):
-    """Скачать видеофайл по URL."""
     logger.info(f"Скачивание видео: {url}")
     response = requests.get(url, stream=True, timeout=300)
     response.raise_for_status()
     
-    # Проверяем Content-Type
     content_type = response.headers.get('Content-Type', '')
     logger.info(f"Content-Type: {content_type}")
     
@@ -174,16 +161,13 @@ def download_video(url: str, output_path: str):
     
     logger.info(f"Видео сохранено: {output_path}, размер: {total_size / 1024 / 1024:.2f} MB")
     
-    # Проверяем что файл не пустой
     if total_size < 1000:
         raise Exception(f"Скачанный файл слишком маленький ({total_size} байт). Возможно, ссылка неправильная.")
 
 
 def extract_audio(video_path: str, audio_path: str):
-    """Извлечь аудиодорожку из видео с помощью FFmpeg."""
     logger.info(f"Извлечение аудио из {video_path}")
     
-    # Сначала проверим информацию о файле
     try:
         probe_result = subprocess.run([
             "ffmpeg", "-i", video_path
@@ -211,10 +195,6 @@ def extract_audio(video_path: str, audio_path: str):
 
 
 def generate_pdf(title: str, notes: str, output_path: str):
-    """Создать PDF-документ с конспектом."""
-    # Регистрируем шрифты с кириллицей (иначе будут "квадратики")
-    # В образе ставим fonts-dejavu-core, путь обычно такой:
-    # /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
     try:
         pdfmetrics.registerFont(TTFont("DejaVuSans", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
         pdfmetrics.registerFont(TTFont("DejaVuSans-Bold", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
@@ -253,11 +233,11 @@ def generate_pdf(title: str, notes: str, output_path: str):
     )
     
     story = []
-    
+
     # Заголовок (название лекции)
     story.append(Paragraph(title, title_style))
     story.append(Spacer(1, 20))
-    
+
     # Конспект (разбиваем на параграфы)
     for paragraph in notes.split('\n\n'):
         if paragraph.strip():
@@ -269,7 +249,6 @@ def generate_pdf(title: str, notes: str, output_path: str):
 
 
 def process_one_message():
-    """Обработать одно сообщение из очереди."""
     logger.info("Processing queue messages...")
     
     sqs = boto3.session.Session().client(
@@ -294,7 +273,7 @@ def process_one_message():
     msgs = sqs.receive_message(
         QueueUrl=os.environ.get("QUEUE_URL"),
         MaxNumberOfMessages=1,
-        WaitTimeSeconds=5,  # Уменьшаем ожидание до 5 сек
+        WaitTimeSeconds=5,
     ).get("Messages", [])
     
     if not msgs:
@@ -311,7 +290,6 @@ def process_one_message():
             logger.info(f"Обработка задания: {task_id}")
             update_task(task_id, status="В обработке")
             
-            # Получить данные задания из БД
             task = get_task_by_id(task_id)
             if not task:
                 raise Exception(f"Задание {task_id} не найдено в БД")
@@ -344,14 +322,12 @@ def process_one_message():
             with open(audio_path, 'rb') as audio_file:
                 audio_data = audio_file.read()
             
-            # Распознавание через SDK
             try:
                 recognizer = sdk.models.speech_recognition("general")
                 recognized_result = recognizer.transcribe(audio_data)
                 transcript = str(recognized_result)
             except Exception as stt_error:
                 logger.warning(f"Ошибка SpeechKit SDK: {stt_error}, пробуем REST API")
-                # Fallback на REST API
                 transcript = recognize_speech_rest_api(audio_path, os.environ.get("FOLDER_ID"))
             
             logger.info(f"Распознано {len(transcript)} символов")
@@ -359,7 +335,6 @@ def process_one_message():
             if not transcript or len(transcript) < 50:
                 raise Exception("Не удалось распознать речь из аудио")
             
-            # 5. Сгенерировать конспект с помощью YandexGPT
             logger.info("Генерация конспекта...")
             
             prompt = f"""Создай структурированный конспект лекции на основе следующего текста.
@@ -401,7 +376,6 @@ def process_one_message():
             update_task(task_id, status="Ошибка", error=str(e))
         
         finally:
-            # Удалить временные файлы
             for path in [video_path, audio_path, pdf_path]:
                 if path and os.path.exists(path):
                     try:
@@ -409,7 +383,6 @@ def process_one_message():
                     except Exception:
                         pass
             
-            # Удалить сообщение из очереди
             sqs.delete_message(
                 QueueUrl=os.environ.get("QUEUE_URL"),
                 ReceiptHandle=m["ReceiptHandle"],
@@ -423,14 +396,12 @@ def process_one_message():
 @app.get("/")
 @app.get("/health")
 def health_check():
-    """Health check endpoint."""
     return {"status": "healthy", "service": "lecture-notes-worker"}
 
 
 @app.post("/")
 @app.post("/process")
 def process_queue():
-    """HTTP endpoint для обработки очереди."""
     try:
         result = process_one_message()
         return result
